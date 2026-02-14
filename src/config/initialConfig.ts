@@ -20,6 +20,7 @@ interface SettingsConfig {
   }
   home?: {
     defaultDataSourceId?: string
+    posterAspectRatio?: '3/4' | '16/9'
   }
   theme?: {
     mode?: 'light' | 'dark' | 'system'

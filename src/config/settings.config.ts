@@ -3,6 +3,7 @@ import { INITIAL_CONFIG } from './initialConfig'
 const envSettings = INITIAL_CONFIG?.settings
 
 export type ThemeMode = 'light' | 'dark' | 'system'
+export type PosterAspectRatio = '3/4' | '16/9'
 
 export const DEFAULT_SETTINGS = {
   network: {
@@ -38,6 +39,7 @@ export const DEFAULT_SETTINGS = {
   },
   home: {
     defaultDataSourceId: envSettings?.home?.defaultDataSourceId ?? '',
+    posterAspectRatio: (envSettings?.home?.posterAspectRatio as PosterAspectRatio) ?? '3/4',
   },
   theme: {
     mode: (envSettings?.theme?.mode as ThemeMode) ?? 'system',

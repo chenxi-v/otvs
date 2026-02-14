@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
-import { DEFAULT_SETTINGS, type ThemeMode } from '@/config/settings.config'
+import { DEFAULT_SETTINGS, type ThemeMode, type PosterAspectRatio } from '@/config/settings.config'
 
 interface NetworkSettings {
   defaultTimeout: number
@@ -28,6 +28,7 @@ interface SystemSettings {
 
 interface HomeSettings {
   defaultDataSourceId: string
+  posterAspectRatio: PosterAspectRatio
 }
 
 interface ThemeSettings {
@@ -134,7 +135,7 @@ export const useSettingStore = create<SettingStore>()(
       })),
       {
         name: 'ouonnki-tv-setting-store',
-        version: 3,
+        version: 4,
         migrate: (persistedState: unknown, version: number) => {
           const state = persistedState as Partial<SettingState>
           if (version < 2) {
@@ -142,6 +143,9 @@ export const useSettingStore = create<SettingStore>()(
           }
           if (version < 3) {
             state.theme = DEFAULT_SETTINGS.theme
+          }
+          if (version < 4) {
+            state.home = { ...DEFAULT_SETTINGS.home, ...(state.home || {}), posterAspectRatio: DEFAULT_SETTINGS.home.posterAspectRatio }
           }
           return state
         },
