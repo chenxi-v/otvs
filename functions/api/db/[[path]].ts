@@ -102,6 +102,28 @@ export const onRequest = async (context: Context) => {
         }
         break
 
+      case 'health':
+        if (context.request.method === 'GET') {
+          const startTime = Date.now()
+          try {
+            await redis.ping()
+            const latency = Date.now() - startTime
+            response = {
+              status: 'healthy',
+              latency,
+              timestamp: new Date().toISOString(),
+            }
+          } catch {
+            response = {
+              status: 'unhealthy',
+              latency: Date.now() - startTime,
+              timestamp: new Date().toISOString(),
+              error: 'Failed to connect to database',
+            }
+          }
+        }
+        break
+
       default:
         return new Response(JSON.stringify({ error: 'Not found' }), {
           status: 404,
