@@ -16,7 +16,7 @@ export default function Detail() {
   const { sourceCode, vodId } = useParams<{ sourceCode: string; vodId: string }>()
   const navigate = useNavigate()
   const { videoAPIs } = useApiStore()
-  const { playback, theme, setThemeSettings } = useSettingStore()
+  const { playback, theme, home, setThemeSettings } = useSettingStore()
   
   useTheme()
 
@@ -265,7 +265,7 @@ export default function Detail() {
             <img
               src={getCover()}
               alt={getTitle()}
-              className="h-[320px] w-[220px] object-cover"
+              className={`object-cover ${home.posterAspectRatio === '16/9' ? 'aspect-video h-[180px] w-[320px]' : 'aspect-[3/4] h-[320px] w-[220px]'}`}
             />
           </div>
         </motion.div>
@@ -283,7 +283,7 @@ export default function Detail() {
               <motion.img
                 src={getCover()}
                 alt={getTitle()}
-                className="h-[180px] w-[120px] rounded-xl object-cover shadow-lg"
+                className={`rounded-xl object-cover shadow-lg ${home.posterAspectRatio === '16/9' ? 'aspect-video h-[90px] w-[160px]' : 'aspect-[3/4] h-[180px] w-[120px]'}`}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.25 }}
