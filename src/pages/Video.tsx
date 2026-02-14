@@ -16,7 +16,7 @@ import { apiService } from '@/services/api.service'
 import { useApiStore } from '@/store/apiStore'
 import { useViewingHistoryStore } from '@/store/viewingHistoryStore'
 import { useSettingStore } from '@/store/settingStore'
-import { useDocumentTitle } from '@/hooks'
+import { useDocumentTitle, useTheme } from '@/hooks'
 import { ArrowUpIcon, ArrowDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@/components/icons'
 import _ from 'lodash'
 import { toast } from 'sonner'
@@ -103,6 +103,8 @@ export default function Video() {
   const { videoAPIs, adFilteringEnabled } = useApiStore()
   const { addViewingHistory, viewingHistory } = useViewingHistoryStore()
   const { playback, theme, setThemeSettings } = useSettingStore()
+  
+  useTheme()
 
   // Use refs to access latest values in main useEffect without triggering re-renders
   const viewingHistoryRef = useRef(viewingHistory)

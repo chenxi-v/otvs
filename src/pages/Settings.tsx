@@ -14,10 +14,13 @@ import { useNavigate } from 'react-router'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useSettingStore } from '@/store/settingStore'
 import { type ThemeMode } from '@/config/settings.config'
+import { useTheme } from '@/hooks'
 
 export default function SettingsPage() {
   const navigate = useNavigate()
   const { theme, setThemeSettings } = useSettingStore()
+  
+  useTheme()
 
   const SideBarModules: SettingModuleList = [
     {

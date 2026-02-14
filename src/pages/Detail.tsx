@@ -5,7 +5,7 @@ import { type DetailResponse } from '@/types'
 import { useApiStore } from '@/store/apiStore'
 import { useSettingStore } from '@/store/settingStore'
 import { Button, Spinner, Tooltip, Select, SelectItem } from '@heroui/react'
-import { useDocumentTitle } from '@/hooks'
+import { useDocumentTitle, useTheme } from '@/hooks'
 import { ArrowUpIcon, ArrowDownIcon } from '@/components/icons'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Sun, Moon, Monitor } from 'lucide-react'
@@ -16,6 +16,8 @@ export default function Detail() {
   const navigate = useNavigate()
   const { videoAPIs } = useApiStore()
   const { playback, theme, setThemeSettings } = useSettingStore()
+  
+  useTheme()
 
   const [detail, setDetail] = useState<DetailResponse | null>(null)
   const [loading, setLoading] = useState(true)
