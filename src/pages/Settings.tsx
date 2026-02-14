@@ -72,13 +72,13 @@ export default function SettingsPage() {
       {/* 主题切换按钮 - 固定在右上角 */}
       <div className="fixed top-5 right-5 z-50">
         <Button
-          onPress={() => {
+          onClick={() => {
             const modes: ThemeMode[] = ['light', 'dark', 'system']
             const currentIndex = modes.indexOf(theme.mode)
             const nextIndex = (currentIndex + 1) % modes.length
             setThemeSettings({ mode: modes[nextIndex] })
           }}
-          isIconOnly
+          size="icon"
           className="bg-white/40 shadow-xl shadow-black/5 backdrop-blur-xl transition-all duration-300 hover:bg-white/60 dark:bg-gray-900/80 dark:hover:bg-gray-800"
         >
           {theme.mode === 'light' ? (
