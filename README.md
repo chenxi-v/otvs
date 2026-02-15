@@ -4,7 +4,7 @@
 </h1>
 
 <p align="center">
-  现代化、可扩展的视频搜索与播放前端，经过深度 UI/UX 优化。
+  基于OuonnkiTV修改添加数据库支持和TVBox一样的API数据显示。
 </p>
 
 <p align="center">
