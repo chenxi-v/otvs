@@ -15,7 +15,7 @@ import { apiService } from '@/services/api.service'
 import { useApiStore } from '@/store/apiStore'
 import { useViewingHistoryStore } from '@/store/viewingHistoryStore'
 import { useSettingStore } from '@/store/settingStore'
-import { useDocumentTitle } from '@/hooks'
+import { useDocumentTitle, useTheme } from '@/hooks'
 import { ArrowUpIcon, ArrowDownIcon } from '@/components/icons'
 import _ from 'lodash'
 import { toast } from 'sonner'
@@ -94,6 +94,9 @@ export default function Video() {
 
   const playerRef = useRef<Artplayer | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+
+  // 初始化主题
+  useTheme()
 
   // 从 store 获取 API 配置
   const { videoAPIs, adFilteringEnabled } = useApiStore()
@@ -257,7 +260,7 @@ export default function Video() {
       autoOrientation: true,
       // autoPlayback: true, // Removed to avoid duplicate resume logic with viewingHistoryStore
       airplay: true,
-      theme: '#23ade5',
+      theme: '#22c55e',
       lang: 'zh-cn',
       moreVideoAttr: {
         crossOrigin: 'anonymous',
@@ -477,7 +480,7 @@ export default function Video() {
       <div className="flex min-h-screen items-center justify-center p-4">
         <div className="text-center">
           <Spinner size="lg" />
-          <p className="mt-4 text-gray-500">正在加载视频信息...</p>
+          <p className="mt-4 text-muted-foreground">正在加载视频信息...</p>
         </div>
       </div>
     )
@@ -490,7 +493,7 @@ export default function Video() {
         <Card className="w-full max-w-sm">
           <CardBody className="text-center">
             <p className="mb-4 text-red-500">{error}</p>
-            <Button className="w-full" onPress={() => navigate(-1)} variant="flat">
+            <Button className="w-full bg-black text-white hover:bg-black/80" onPress={() => navigate(-1)}>
               返回
             </Button>
           </CardBody>
@@ -505,8 +508,8 @@ export default function Video() {
       <div className="flex min-h-screen items-center justify-center p-4">
         <Card className="w-full max-w-sm">
           <CardBody className="text-center">
-            <p className="mb-4 text-gray-500">无法获取播放信息</p>
-            <Button className="w-full" onPress={() => navigate(-1)} variant="flat">
+            <p className="mb-4 text-muted-foreground">无法获取播放信息</p>
+            <Button className="w-full bg-black text-white hover:bg-black/80" onPress={() => navigate(-1)}>
               返回
             </Button>
           </CardBody>
@@ -521,10 +524,10 @@ export default function Video() {
       <div className="mb-4 flex flex-col gap-2 md:hidden">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm font-semibold text-gray-600">{sourceName}</p>
+            <p className="text-sm font-semibold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent">{sourceName}</p>
             <h4 className="text-lg font-bold">{getTitle()}</h4>
           </div>
-          <Button size="sm" variant="flat" onPress={() => navigate(-1)}>
+          <Button size="sm" className="bg-black text-white hover:bg-black/80" onPress={() => navigate(-1)}>
             返回
           </Button>
         </div>
@@ -532,7 +535,7 @@ export default function Video() {
           <Chip size="sm" color="primary" variant="flat">
             第 {selectedEpisode + 1} 集
           </Chip>
-          <p className="text-sm text-gray-600">共 {detail.episodes.length} 集</p>
+          <p className="text-sm text-muted-foreground">共 {detail.episodes.length} 集</p>
         </div>
       </div>
 
@@ -540,17 +543,17 @@ export default function Video() {
       <div className="mb-4 hidden items-center justify-between md:flex">
         <div className="flex items-center gap-4">
           <div>
-            <p className="text-sm font-semibold text-gray-500">{sourceName}</p>
+            <p className="text-sm font-semibold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent">{sourceName}</p>
             <h4 className="text-xl font-bold">{getTitle()}</h4>
           </div>
           <div className="flex items-center gap-2">
             <Chip size="sm" color="primary" variant="flat">
               第 {selectedEpisode + 1} 集
             </Chip>
-            <p className="text-sm text-gray-500">共 {detail.episodes.length} 集</p>
+            <p className="text-sm text-muted-foreground">共 {detail.episodes.length} 集</p>
           </div>
         </div>
-        <Button size="sm" variant="flat" onPress={() => navigate(-1)}>
+        <Button size="sm" className="bg-black text-white hover:bg-black/80" onPress={() => navigate(-1)}>
           返回
         </Button>
       </div>
@@ -571,7 +574,7 @@ export default function Video() {
         <div className="mt-4 flex flex-col">
           <div className="flex flex-col gap-2 p-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-semibold text-gray-900">选集</h2>
+              <h2 className="text-2xl font-semibold text-foreground">选集</h2>
               <div className="flex items-center gap-2">
                 <Button
                   size="sm"
@@ -580,7 +583,7 @@ export default function Video() {
                   startContent={
                     isReversed ? <ArrowUpIcon size={18} /> : <ArrowDownIcon size={18} />
                   }
-                  className="min-w-unit-16 text-sm text-gray-600"
+                  className="min-w-unit-16 text-sm text-muted-foreground"
                 >
                   {isReversed ? '正序' : '倒序'}
                 </Button>
@@ -591,9 +594,9 @@ export default function Video() {
                     onChange={e => setCurrentPageRange(e.target.value)}
                     className="w-32"
                     classNames={{
-                      trigger: 'bg-white/30 backdrop-blur-md border border-gray-200',
-                      value: 'text-gray-800 font-medium',
-                      popoverContent: 'bg-white/40 backdrop-blur-2xl border border-gray-200/50',
+                      trigger: 'bg-white/30 backdrop-blur-md border border-border',
+                      value: 'text-foreground font-medium',
+                      popoverContent: 'bg-white/40 backdrop-blur-2xl border border-border/50',
                     }}
                     aria-label="选择集数范围"
                   >
@@ -605,7 +608,7 @@ export default function Video() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3 rounded-lg bg-white/30 p-4 pt-0 shadow-lg/5 backdrop-blur-md sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-8">
+          <div className="grid grid-cols-2 gap-3 rounded-lg bg-white/30 p-4 pt-0 shadow-lg/5 backdrop-blur-md sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-8 dark:bg-black/30">
             {currentPageEpisodes.map(({ name, displayIndex, actualIndex }) => {
               return (
                 <Tooltip
@@ -620,8 +623,8 @@ export default function Video() {
                     variant="shadow"
                     className={
                       selectedEpisode === actualIndex
-                        ? 'border border-gray-200 bg-gray-900 text-white drop-shadow-2xl'
-                        : 'border border-gray-200 bg-white/30 text-gray-800 drop-shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-black/80 hover:text-white'
+                        ? 'border border-border bg-primary text-primary-foreground drop-shadow-2xl'
+                        : 'border border-border bg-white/30 text-foreground drop-shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-black/80 hover:text-white dark:bg-black/30 dark:hover:bg-white/80 dark:hover:text-black'
                     }
                     onPress={() => handleEpisodeChange(displayIndex)}
                   >

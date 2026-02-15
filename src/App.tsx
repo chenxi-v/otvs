@@ -415,7 +415,7 @@ function App() {
           <motion.div
             layoutId="app-logo"
             transition={{ duration: 0.4 }}
-            className="hidden translate-x-[-1rem] items-end gap-2 text-[1.5rem] sm:flex md:text-[2rem]"
+            className="hidden items-center justify-center gap-2 text-[1.5rem] sm:flex md:text-[2rem]"
           >
             <motion.div layoutId="logo-icon">
               <div className="block md:hidden">
@@ -434,11 +434,11 @@ function App() {
             ref={containerRef}
             layoutId="search-container"
             initial={{ width: '100%' }}
-            className="relative mt-6 h-fit"
+            className="relative mx-auto mt-6 h-fit max-w-2xl"
           >
             <Input
               classNames={{
-                base: 'max-w-full h-13 sm:max-w-[50%]',
+                base: 'w-full h-13',
                 mainWrapper: 'h-full',
                 input: 'text-md',
                 inputWrapper:
@@ -571,7 +571,7 @@ function App() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="mt-8"
               >
-                <div className="mb-4 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-3 sm:overflow-x-auto sm:pb-2">
+                <div className="mb-4 flex flex-wrap justify-center gap-2 sm:gap-3">
                   {categories.map(category => (
                     <motion.button
                       key={category.type_id}
@@ -591,8 +591,8 @@ function App() {
 
                 {subCategories.length > 0 && (
                   <div className="mb-6">
-                    <div className="flex items-center gap-2">
-                      <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap items-center justify-center gap-2">
+                      <div className="flex flex-wrap justify-center gap-2">
                         {(isExpanded ? subCategories : subCategories.slice(0, 8)).map(subCat => (
                           <motion.button
                             key={subCat.type_id}

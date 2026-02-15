@@ -215,8 +215,7 @@ export default function Detail() {
       <div className="mb-4 flex items-center justify-end">
         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
           <Button
-            variant="ghost"
-            className="gap-2 rounded-xl bg-white/40 shadow-lg shadow-black/5 backdrop-blur-xl transition-all duration-300 hover:bg-white/60 dark:bg-white/10 dark:hover:bg-white/20"
+            className="gap-2 rounded-xl bg-black text-white shadow-lg transition-all duration-300 hover:bg-black/80"
             onPress={() => navigate(-1)}
           >
             <ArrowLeft size={18} />
@@ -548,7 +547,7 @@ export default function Detail() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handlePlayEpisode(displayIndex)}
-                    className="relative w-full overflow-hidden rounded-xl bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-all duration-300 hover:bg-gray-200 hover:shadow-md dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+                    className="relative w-full overflow-hidden rounded-xl bg-black px-3 py-2 text-sm font-medium text-white transition-all duration-300 hover:bg-black/80 hover:shadow-md"
                   >
                     <span className="relative z-10 block overflow-hidden text-ellipsis whitespace-nowrap">
                       {name}
