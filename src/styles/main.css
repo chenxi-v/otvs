@@ -434,6 +434,41 @@
 }
 
 /* ============================================
+   竖屏模式样式
+   ============================================ */
+
+/* 竖屏模式容器 */
+#player.portrait-mode {
+  aspect-ratio: 9/16 !important;
+  max-height: 80vh !important;
+}
+
+/* 竖屏模式下的播放器 */
+#player.portrait-mode .art-video-player {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* 竖屏模式下的视频 */
+#player.portrait-mode .art-video-player video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+/* 竖屏切换按钮样式 */
+.art-video-player .art-controls .art-control[data-index="custom"] {
+  display: flex !important;
+}
+
+/* 移动端竖屏优化 */
+@media (max-width: 768px) {
+  #player.portrait-mode {
+    max-height: 70vh !important;
+  }
+}
+
+/* ============================================
    ArtPlayer 全局主题色覆盖 - 绿色
    ============================================ */
 

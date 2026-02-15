@@ -265,6 +265,29 @@ export default function Video() {
       moreVideoAttr: {
         crossOrigin: 'anonymous',
       },
+      controls: [
+        {
+          position: 'right',
+          html: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" ry="2" transform="rotate(90 12 12)"/><line x1="12" x2="12.01" y1="18" y2="18"/></svg>',
+          tooltip: '切换竖屏',
+          click: function () {
+            const container = containerRef.current
+            if (container) {
+              const isPortrait = container.classList.contains('portrait-mode')
+              if (isPortrait) {
+                container.classList.remove('portrait-mode')
+                container.style.aspectRatio = '16/9'
+                art.notice.show = '已切换到横屏'
+              } else {
+                container.classList.add('portrait-mode')
+                container.style.aspectRatio = '9/16'
+                art.notice.show = '已切换到竖屏'
+              }
+              art.resize()
+            }
+          },
+        },
+      ],
       customType: {
         m3u8: function (video: HTMLMediaElement, url: string, art: Artplayer) {
           const artWithHls = art as ArtplayerWithHls
