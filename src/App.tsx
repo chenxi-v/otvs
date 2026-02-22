@@ -288,10 +288,23 @@ function App() {
               } else {
                 // 过滤掉被屏蔽的分类
                 const filteredClass = data.class.filter((cat: Category) => !blockedCategories.includes(cat.type_id))
-                const mainCategoryIds = [1, 2, 3, 4, 20]
-                const mainCategories = filteredClass.filter((cat: Category) =>
-                  mainCategoryIds.includes(cat.type_id),
+
+                // 智能识别主分类：
+                // 1. 优先使用常见的分类名称匹配
+                // 2. 如果没有匹配，使用 ID 1-4 作为默认主分类
+                const mainCategoryKeywords = ['电影', '剧集', '电视剧', '综艺', '动漫', '动画', '纪录', '纪录片', '短剧']
+                const detectedMainCategories = filteredClass.filter((cat: Category) =>
+                  mainCategoryKeywords.some(keyword => cat.type_name?.includes(keyword))
                 )
+
+                // 如果检测到主分类，使用检测到的；否则使用 ID 1-4 的分类
+                const mainCategories = detectedMainCategories.length > 0
+                  ? detectedMainCategories
+                  : filteredClass.filter((cat: Category) => [1, 2, 3, 4].includes(cat.type_id))
+
+                const mainCategoryIds = mainCategories.map((cat: Category) => cat.type_id)
+
+                // 为所有分类分配 type_pid
                 const allCategoriesWithPid = filteredClass.map((cat: Category) => ({
                   ...cat,
                   type_pid: mainCategoryIds.includes(cat.type_id) ? 0 : getCategoryParent(cat.type_id),
